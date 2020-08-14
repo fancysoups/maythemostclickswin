@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start -p $PORT"
+  },
+  "dependencies": {
+    "mongoose": "^5.9.28",
+    "next": "^9.5.2",
+    "react": "^16.13.1",
+    "react-countdown": "^2.2.1",
+    "react-dom": "^16.13.1",
+    "react-flip-move": "^3.0.4",
+    "short-number": "^1.0.7",
+    "swr": "^0.3.0",
+    "twitter": "^1.7.1"
+  }
+}
