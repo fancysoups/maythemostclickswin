@@ -1,13 +1,6 @@
 import React from 'react';
-import useSWR from 'swr';
 import Tweet from './Tweet';
 import FlipMove from 'react-flip-move';
-const isProd = process.env.NODE_ENV === 'production';
-const URL = isProd
-  ? `https://cdn.${process.env.NEXT_PUBLIC_DOMAIN}/api/top.json`
-  : 'http://localhost:3000/api/top.json';
-
-const fetcher = url => fetch(url).then(res => res.json());
 
 const Top = ({ top }) => {
   return (

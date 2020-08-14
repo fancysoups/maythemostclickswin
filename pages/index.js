@@ -3,6 +3,7 @@ import searchTweet from 'backend/functions/search-tweet';
 import Head from 'next/head';
 import Info from 'components/Info';
 import Top from 'components/Top';
+import useSWR from 'swr';
 
 const isProd = process.env.NODE_ENV === 'production';
 const URL = isProd
@@ -18,8 +19,13 @@ export const getServerSideProps = async ctx => {
   const initialData = await fetch(URL).then(res => res.json());
   return { props: { initialData } };
 };
+const fetcher = url => fetch(url).then(res => res.json());
 
 const Index = ({ initialData }) => {
+  const { data } = useSWR(URL, fetcher, {
+    initialData: initialData,
+    refreshInterval: 15 * 1000,
+  });
   return (
     <div className="index">
       <Head>
@@ -30,8 +36,8 @@ const Index = ({ initialData }) => {
           href="https://cdn.maythemostclicks.win/icon.png"
         />
       </Head>
-      <Info clicks={initialData.clicks} />
-      <Top top={initialData.top} />
+      <Info clicks={data.clicks} />
+      <Top top={data.top} />
       <style jsx>{`
         .index {
           display: grid;
@@ -55,6 +61,7 @@ const Index = ({ initialData }) => {
           padding: 0;
           margin: 0;
           background: #fff;
+          overscroll-behavior: none;
           font-size: 14px;
         }
       `}</style>
