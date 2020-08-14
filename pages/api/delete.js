@@ -18,16 +18,16 @@ export default async (req, res) => {
       { banned: true },
       { upsert: true }
     );
-  await fetch(
-    `https://bunnycdn.com/api/purge?url=${encodeURIComponent(
-      'https://cdn.maythemostclicks.win/api/top.json'
-    )}`,
-    {
-      headers: {
-        AccessKey:
-          '26e7737a-faaa-494e-b43c-ddbaad46d0b24f917210-eccb-4b61-9a1c-dccd9a6777a0',
-      },
-    }
-  );
+  if (process.env.BUNNY_CDN_KEY)
+    await fetch(
+      `https://bunnycdn.com/api/purge?url=${encodeURIComponent(
+        'https://cdn.maythemostclicks.win/api/top.json'
+      )}`,
+      {
+        headers: {
+          AccessKey: process.env.BUNNY_CDN_KEY,
+        },
+      }
+    );
   return res.json({ success: true });
 };
